@@ -1,10 +1,15 @@
 name: Deploy
 
 
+# on:
+#   push:
+#     branches:
+#       - main
+
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron:  '0 0 15 ? * FRI *'
+
 
 jobs:
   deploy:
@@ -15,4 +20,5 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install mkdocs-material 
+      - run: python automate.py
       - run: mkdocs gh-deploy --force
